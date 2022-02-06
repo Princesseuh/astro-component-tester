@@ -1,11 +1,12 @@
 {
   "name": "astro-component-tester",
   "description": "Utility to test Astro components",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "type": "module",
   "exports": {
-    ".": "./src/index.js"
+    ".": "./dist/index.js"
   },
+  "types": "./dist/index.d.ts",
   "author": "Princesseuh",
   "license": "MIT",
   "scripts": {
