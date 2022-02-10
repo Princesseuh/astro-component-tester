@@ -12,12 +12,12 @@ Examples below uses Mocha and Chai for convenience but this should work with any
 
 ```js
 import { expect } from 'chai';
-import { buildComponent } from 'astro-component-tester';
+import { getComponentOutput } from 'astro-component-tester';
 
 describe('Component', async () => {
   // Component content here is equal to simply <div>Hello</div>
   before(async () => {
-    component = await buildComponent('./src/Component.astro');
+    component = await getComponentOutput('./src/Component.astro');
   });
 
   it('example component should say hello', async () => {
@@ -44,29 +44,40 @@ You can also pass props to the component, using the following method:
 
 ```js
 import { expect } from 'chai';
-import { buildComponent } from 'astro-component-tester';
+import { getComponentOutput } from 'astro-component-tester';
 
 describe('Component', async () => {
   before(async () => {
-    component = await buildComponent('./src/Component.astro', { mySuperProp: 1 });
+    component = await getComponentOutput('./src/Component.astro', { mySuperProp: 1 });
   });
 
-  it('example component should say hello', async () => {
+  it('example component should return 2', async () => {
     expect(component.html).to.contain(2);
+  });
+});
+```
+
+Through a third parameter to `getComponentOutput`, it's possible to pass settings to the build operation, this is also how you can pass options to Astro itself, for instance, to test the output of a component that uses a Svelte component:
+
+```js
+import { expect } from 'chai';
+import { getComponentOutput } from 'astro-component-tester';
+
+describe('Component', async () => {
+  before(async () => {
+    component = await getComponentOutput('./src/Component.astro', {}, { astroOptions: { renderers: ['@astrojs/renderer-svelte'] } });
+  });
+
+  it('example component should say hello using a Svelte component', async () => {
+    expect(component.html).to.contain('Hello from Svelte');
   });
 });
 ```
 
 ## Limitations
 
-### Cannot currently pass options to Astro
-
-It is not currently supported to pass options to Astro, so tests based on Astro-related settings don't work
-
-### React/Vue/Svelte etc components
-
-See previous point, since it's currently not possible to pass settings to Astro, renderers are currently not supported
-
 ### Context-specific variables
 
-Since this work by building the component in an isolated environment, any variables depending on a specific context will be lost. For instance, `Astro.request` will always simply return the index page. Presumably, if you're building a component that should work in any instance, this wouldn't be an issue but it could become one for some components. At the moment, `astro-component-tester` does not support any kind of mocking for supporting that use case
+Since this work by building the component in an isolated environment, any variables depending on a specific context will be lost. For instance, `Astro.request` will always return the index page. Presumably, if you're building a component that should work in any instance, this wouldn't be an issue but it could become one for some components.
+
+At the moment, `astro-component-tester` does not support any kind of mocking for supporting that use case

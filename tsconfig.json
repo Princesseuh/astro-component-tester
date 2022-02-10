@@ -6,6 +6,6 @@
     "outDir": "dist",
     "declaration": true
   },
-  "files": ["src/index.ts"],
+  "files": ["src/index.ts", "src/builder.ts"],
   "exclude": ["node_modules"]
 }
