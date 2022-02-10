@@ -15,12 +15,14 @@ import { expect } from 'chai';
 import { getComponentOutput } from 'astro-component-tester';
 
 describe('Component', async () => {
+  let component;
+
   // Component content here is equal to simply <div>Hello</div>
   before(async () => {
     component = await getComponentOutput('./src/Component.astro');
   });
 
-  it('example component should say hello', async () => {
+  it('example component should say hello', () => {
     expect(component.html).to.contain('Hello');
   });
 });
@@ -32,9 +34,7 @@ You can also pass props to the component, using the following method:
 
 ```astro
 ---
-  const {
-    mySuperProp
-  } = Astro.props
+const { mySuperProp } = Astro.props
 ---
 
 <div>{ mySuperProp + 1 }</div>
@@ -47,11 +47,13 @@ import { expect } from 'chai';
 import { getComponentOutput } from 'astro-component-tester';
 
 describe('Component', async () => {
+  let component;
+
   before(async () => {
     component = await getComponentOutput('./src/Component.astro', { mySuperProp: 1 });
   });
 
-  it('example component should return 2', async () => {
+  it('example component should return 2', () => {
     expect(component.html).to.contain(2);
   });
 });
@@ -64,11 +66,13 @@ import { expect } from 'chai';
 import { getComponentOutput } from 'astro-component-tester';
 
 describe('Component', async () => {
+  let component;
+
   before(async () => {
     component = await getComponentOutput('./src/Component.astro', {}, { astroOptions: { renderers: ['@astrojs/renderer-svelte'] } });
   });
 
-  it('example component should say hello using a Svelte component', async () => {
+  it('example component should say hello using a Svelte component', () => {
     expect(component.html).to.contain('Hello from Svelte');
   });
 });
