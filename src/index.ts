@@ -6,7 +6,7 @@ export interface ComponentOutput {
 	raw: string;
 }
 
-export async function getComponentOutput(path: string, props: Record<string, unknown>, buildOptions: BuildOption): Promise<ComponentOutput> {
+export async function getComponentOutput(path: string, props: Record<string, unknown> = {}, buildOptions: BuildOption = {}): Promise<ComponentOutput> {
 	// Build the component
 	const component = await buildComponent(path, props, buildOptions);
 

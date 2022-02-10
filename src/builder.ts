@@ -10,8 +10,8 @@ import { AstroUserConfig } from 'astro';
 const TESTER_DIR = dirname(fileURLToPath(import.meta.url)).slice(0, -5);
 
 export interface BuildOption {
-	astroConfig: AstroUserConfig;
-	forceBuild: boolean;
+	astroConfig?: AstroUserConfig;
+	forceBuild?: boolean;
 }
 
 /**
@@ -21,7 +21,7 @@ export interface BuildOption {
  * @returns The path to the built component
  */
 export async function buildComponent(path: string, props: Record<string, unknown>, buildOptions: BuildOption): Promise<string> {
-	const hash = getHash(path, props, buildOptions.astroConfig);
+	const hash = getHash({ path, props, astroConfig: buildOptions.astroConfig });
 
 	const projectRoot = TESTER_DIR + '/.test/' + `test-${hash}`;
 	const pathToComponent = relative(projectRoot + '/src/pages', path);
@@ -64,12 +64,10 @@ const dedent = (str: string) =>
 		.map((ln) => ln.trimStart())
 		.join('\n');
 
-function getHash(path, options = {}, astroOptions = {}) {
+function getHash(options: Record<string, unknown>) {
 	const hash = createHash('sha256');
 
-	hash.update(path);
 	hash.update(JSON.stringify(options));
-	hash.update(JSON.stringify(astroOptions));
 
 	return hash.digest('base64url').toString().substring(0, 6);
 }
