@@ -25,4 +25,4 @@ export async function getComponentOutput(path: string, props: Record<string, unk
 	};
 }
 
-export { cleanTests } from './builder';
+export { cleanTests } from './builder.js';

@@ -4,7 +4,8 @@
     "lib": ["ESNext"],
     "moduleResolution": "node",
     "outDir": "dist",
-    "declaration": true
+    "declaration": true,
+    "skipLibCheck": true
   },
   "files": ["src/index.ts", "src/builder.ts"],
   "exclude": ["node_modules"]
