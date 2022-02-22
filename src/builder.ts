@@ -11,7 +11,12 @@ const TESTER_DIR = dirname(fileURLToPath(import.meta.url)).slice(0, -5);
 
 export interface BuildOption {
 	astroConfig?: AstroUserConfig;
-	forceBuild?: boolean;
+	forceNewEnvironnement?: boolean;
+}
+
+export interface BuildResult {
+	projectRoot: string;
+	builtFile: string;
 }
 
 /**
@@ -20,14 +25,14 @@ export interface BuildOption {
  * @param buildOptions Build options, such as forceBuild to force new builds instead of using cache
  * @returns The path to the built component
  */
-export async function buildComponent(path: string, props: Record<string, unknown>, buildOptions: BuildOption): Promise<string> {
+export async function buildComponent(path: string, props: Record<string, unknown>, buildOptions: BuildOption): Promise<BuildResult> {
 	const hash = getHash({ path, props, astroConfig: buildOptions.astroConfig });
 
 	const projectRoot = TESTER_DIR + '/.test/' + `test-${hash}`;
 	const pathToComponent = relative(projectRoot + '/src/pages', path);
 
-	// If the dir already exists and the user didn't request to a build, let's skip all that work
-	if (!existsSync(projectRoot) || buildOptions?.forceBuild) {
+	// If the dir already exists, no need to scaffold a new one unless the user request it
+	if (!existsSync(projectRoot) || buildOptions?.forceNewEnvironnement) {
 		const content = dedent(`
         ---
             import Component from "${pathToComponent}"
@@ -49,13 +54,15 @@ export async function buildComponent(path: string, props: Record<string, unknown
 		await writeFile(projectRoot + '/astro.config.js', config, {
 			encoding: 'utf-8',
 		});
-
-		// Build it using the Astro CLI
-		execSync('npx astro build', { cwd: projectRoot });
 	}
 
-	// Return the path to the built file
-	return projectRoot + '/dist/index.html';
+	// Build it using the Astro CLI
+	execSync('npx astro build', { cwd: projectRoot });
+
+	return {
+		projectRoot,
+		builtFile: projectRoot + '/dist/index.html',
+	};
 }
 
 const dedent = (str: string) =>

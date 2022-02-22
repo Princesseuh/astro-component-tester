@@ -1,8 +1,8 @@
 # astro-component-tester
 
-Utility to help you write tests for your Astro components. In essence, what it does is create a temporary empty Astro project with only the selected component and then it returns the final output of an Astro build. In the future, I hope to add more useful tools for testing your component
+Utility to help you write tests for your Astro components. In essence, what it does is create a temporary empty Astro project with only the selected component in a `src/pages/index.astro` file, then it builds it using the Astro CLI and finally, it returns the output of that build
 
-While it's intended to be used when writing tests, you could also use it outside of that usecase, if needed 😄
+While it's intended to be used when writing tests, you could also use it outside of that usecase, for instance to build a single component 😄
 
 > Part of [astro-component-template](https://github.com/Princesseuh/astro-component-template)
 
