@@ -19,8 +19,8 @@ export async function getComponentOutput(path: string, props: Record<string, unk
 		encoding: 'utf-8',
 	});
 
-	// Since we're building a page and not a component, Astro includes a DOCTYPE and stuff, we don't want that
-	const resultContent = result.toString().match(/<html>(.*)<\/html>/ms)[1];
+	// Since we're building a page and not a component, Astro includes a DOCTYPE, we don't want that
+	const resultContent = result.toString().match(/<!DOCTYPE html>(.*)/ms)[1];
 
 	return {
 		html: resultContent,
