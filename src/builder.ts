@@ -43,7 +43,7 @@ export async function buildComponent(path: string, props: Record<string, unknown
         `).trim();
 
 		// Set the default Astro config if the user didn't provide one
-		buildOptions.astroConfig ??= { renderers: [] };
+		buildOptions.astroConfig ??= {};
 		const config = `export default (${JSON.stringify(buildOptions.astroConfig)});`;
 
 		// Scaffold an environnement for building the component
