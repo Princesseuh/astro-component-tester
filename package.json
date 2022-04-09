@@ -1,7 +1,7 @@
 {
   "name": "astro-component-tester",
   "description": "Utility to test Astro components",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "type": "module",
   "exports": {
     ".": "./dist/index.js"
