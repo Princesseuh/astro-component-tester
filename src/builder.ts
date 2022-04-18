@@ -29,7 +29,9 @@ export async function buildComponent(path: string, props: Record<string, unknown
 	const hash = getHash({ path, props, astroConfig: buildOptions.astroConfig });
 
 	const projectRoot = TESTER_DIR + '/.test/' + `test-${hash}`;
-	const pathToComponent = relative(projectRoot + '/src/pages', path);
+	// TODO: https://github.com/sindresorhus/slash;
+	// We need to ensure that conventional forward slashes are used.
+	const pathToComponent = relative(projectRoot + '/src/pages', path).replace(/\\/g, '/');
 
 	// If the dir already exists, no need to scaffold a new one unless the user request it
 	if (!existsSync(projectRoot) || buildOptions?.forceNewEnvironnement) {
