@@ -1,19 +1,20 @@
 {
   "name": "astro-component-tester",
   "description": "Utility to test Astro components",
-  "version": "0.4.0",
-  "type": "module",
-  "exports": {
-    ".": "./dist/index.js"
-  },
+  "version": "0.5.0",
+  "main": "dist/cjs/index.js",
+  "module": "dist/index.js",
+  "jsnext:main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "files": [
     "dist"
   ],
-  "types": "./dist/index.d.ts",
   "author": "Princesseuh",
   "license": "MIT",
   "scripts": {
-    "build": "tsc --module commonjs --target es5 --outDir dist/cjs",
+    "build:esm": "tsc",
+    "build:cjs": "tsc --module commonjs --target es5 --outDir dist/cjs",
+    "build": "npm run build:esm && npm run build:cjs",
     "dev": "tsc --watch",
     "format": "prettier -w .",
     "lint": "eslint . --ext .ts,.js",
