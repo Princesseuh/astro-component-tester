@@ -13,7 +13,7 @@
   "author": "Princesseuh",
   "license": "MIT",
   "scripts": {
-    "build": "tsc",
+    "build": "tsc --module commonjs --target es5 --outDir dist/cjs",
     "dev": "tsc --watch",
     "format": "prettier -w .",
     "lint": "eslint . --ext .ts,.js",
