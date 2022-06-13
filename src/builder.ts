@@ -1,11 +1,12 @@
 import { mkdir, writeFile } from 'fs/promises';
 import { execSync } from 'child_process';
-import { relative } from 'path';
+import { dirname, relative } from 'path';
+import { fileURLToPath } from 'url';
 import { createHash } from 'crypto';
 import { existsSync, rmSync } from 'fs';
 import { AstroUserConfig } from 'astro';
 
-const TESTER_DIR = __dirname;
+const TESTER_DIR = typeof __dirname !== 'undefined' ? __dirname : dirname(fileURLToPath(import.meta.url));
 
 export interface BuildOption {
   astroConfig?: AstroUserConfig;
