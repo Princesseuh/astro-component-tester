@@ -1,12 +1,20 @@
 import { mkdir, writeFile } from 'fs/promises';
 import { execSync } from 'child_process';
-import { dirname, relative } from 'path';
+import { dirname as getDirname, relative } from 'path';
 import { fileURLToPath } from 'url';
 import { createHash } from 'crypto';
 import { existsSync, rmSync } from 'fs';
 import { AstroUserConfig } from 'astro';
 
-const TESTER_DIR = typeof __dirname !== 'undefined' ? __dirname : dirname(fileURLToPath(import.meta.url));
+const dirname = (() => {
+  /* replace-in-file-dirname-start */
+  return typeof __dirname === 'undefined'
+    ? // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      getDirname(fileURLToPath(import.meta.url)).slice(0, -5)
+    : __dirname;
+  /* replace-in-file-dirname-end */
+})();
 
 export interface BuildOption {
   astroConfig?: AstroUserConfig;
@@ -27,7 +35,7 @@ export interface BuildResult {
 export async function buildComponent(path: string, props: Record<string, unknown>, buildOptions: BuildOption): Promise<BuildResult> {
   const hash = getHash({ path, props, astroConfig: buildOptions.astroConfig });
 
-  const projectRoot = TESTER_DIR + '/.test/' + `test-${hash}`;
+  const projectRoot = dirname + '/.test/' + `test-${hash}`;
   // TODO: https://github.com/sindresorhus/slash;
   // We need to ensure that conventional forward slashes are used.
   const pathToComponent = relative(projectRoot + '/src/pages', path).replace(/\\/g, '/');
@@ -84,5 +92,5 @@ function getHash(options: Record<string, unknown>) {
  * Remove all test directories created
  */
 export function cleanTests() {
-  rmSync(TESTER_DIR + '/.test/', { recursive: true, force: true });
+  rmSync(dirname + '/.test/', { recursive: true, force: true });
 }
