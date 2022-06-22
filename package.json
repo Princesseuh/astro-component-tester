@@ -1,19 +1,27 @@
 {
   "name": "astro-component-tester",
   "description": "Utility to test Astro components",
-  "version": "0.4.0",
-  "type": "module",
+  "version": "0.5.0",
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "exports": {
-    ".": "./dist/index.js"
+    ".": {
+      "require": "./dist/cjs/index.js",
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
   },
   "files": [
     "dist"
   ],
-  "types": "./dist/index.d.ts",
   "author": "Princesseuh",
   "license": "MIT",
   "scripts": {
-    "build": "tsc",
+    "build:esm": "tsc",
+    "build:cjs": "tsc --module commonjs --target es5 --outDir dist/cjs && npm run replace-cjs:dirname",
+    "build": "npm run build:esm && npm run build:cjs",
+    "replace-cjs:dirname": "replace-in-file ./dist/cjs/**  --configFile=./scripts/replace-in-files-dirname.js",
     "dev": "tsc --watch",
     "format": "prettier -w .",
     "lint": "eslint . --ext .ts,.js",
@@ -33,6 +41,7 @@
     "eslint-config-prettier": "^8.4.0",
     "eslint-plugin-prettier": "^4.0.0",
     "prettier": "^2.5.1",
+    "replace-in-file": "^6.3.5",
     "typescript": "^4.5.5"
   }
 }
