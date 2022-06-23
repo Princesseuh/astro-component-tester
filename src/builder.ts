@@ -60,7 +60,7 @@ export async function buildComponent(path: string, props: Record<string, unknown
 		await writeFile(projectRoot + '/src/pages/' + 'index.astro', content, {
 			encoding: 'utf-8',
 		});
-		await writeFile(projectRoot + '/astro.config.js', config, {
+		await writeFile(projectRoot + '/astro.config.mjs', config, {
 			encoding: 'utf-8',
 		});
 	}
