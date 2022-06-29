@@ -1,5 +1,6 @@
 import { readFile, rm, stat } from 'fs/promises';
 import { join } from 'path';
+import { AstroGlobal } from 'astro';
 import { buildComponent, BuildOption } from './builder.js';
 
 export interface ComponentOutput {
@@ -10,7 +11,7 @@ export interface ComponentOutput {
 	clean: () => Promise<void>;
 }
 
-export async function getComponentOutput(path: string, props: Record<string, unknown> = {}, buildOptions: BuildOption = {}): Promise<ComponentOutput> {
+export async function getComponentOutput(path: string, props: AstroGlobal['props'] = {}, buildOptions: BuildOption = {}): Promise<ComponentOutput> {
 	// Build the component
 	const component = await buildComponent(path, props, buildOptions);
 
