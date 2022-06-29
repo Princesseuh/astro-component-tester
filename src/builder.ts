@@ -4,7 +4,7 @@ import { dirname as getDirname, relative } from 'path';
 import { fileURLToPath } from 'url';
 import { createHash } from 'crypto';
 import { existsSync, rmSync } from 'fs';
-import { AstroUserConfig } from 'astro';
+import { AstroGlobal, AstroUserConfig } from 'astro';
 
 const dirname = (() => {
 	/* replace-in-file-dirname-start */
@@ -32,7 +32,7 @@ export interface BuildResult {
  * @param buildOptions Build options, such as forceBuild to force new builds instead of using cache
  * @returns The path to the built component
  */
-export async function buildComponent(path: string, props: Record<string, unknown>, buildOptions: BuildOption): Promise<BuildResult> {
+export async function buildComponent(path: string, props: AstroGlobal['props'], buildOptions: BuildOption): Promise<BuildResult> {
 	const hash = getHash({ path, props, astroConfig: buildOptions.astroConfig });
 
 	const projectRoot = dirname + '/.test/' + `test-${hash}`;
