@@ -2,6 +2,7 @@
   "name": "astro-component-tester",
   "description": "Utility to test Astro components",
   "version": "0.5.2",
+  "type": "module",
   "main": "./dist/cjs/index.js",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -21,27 +22,27 @@
     "build:esm": "tsc",
     "build:cjs": "tsc --module commonjs --target es5 --outDir dist/cjs && npm run replace-cjs:dirname",
     "build": "npm run build:esm && npm run build:cjs",
-    "replace-cjs:dirname": "replace-in-file ./dist/cjs/**  --configFile=./scripts/replace-in-files-dirname.js",
+    "replace-cjs:dirname": "replace-in-file ./dist/cjs/**  --configFile=./scripts/replace-in-files-dirname.cjs",
     "dev": "tsc --watch",
     "format": "prettier -w .",
     "lint": "eslint . --ext .ts,.js",
     "prepublishOnly": "npm run build"
   },
   "peerDependencies": {
-    "astro": ">=1.0.0-beta.0"
+    "astro": "^1.0.0-rc.1"
   },
   "devDependencies": {
-    "@types/eslint": "^8.4.1",
-    "@types/node": "^17.0.19",
-    "@types/prettier": "^2.4.4",
-    "@typescript-eslint/eslint-plugin": "^5.12.1",
-    "@typescript-eslint/parser": "^5.12.1",
-    "astro": ">=1.0.0-beta.0",
-    "eslint": "^8.9.0",
-    "eslint-config-prettier": "^8.4.0",
-    "eslint-plugin-prettier": "^4.0.0",
-    "prettier": "^2.5.1",
+    "@types/eslint": "^8.4.5",
+    "@types/node": "^18.6.2",
+    "@types/prettier": "^2.6.4",
+    "@typescript-eslint/eslint-plugin": "^5.31.0",
+    "@typescript-eslint/parser": "^5.31.0",
+    "astro": ">=1.0.0-rc.3",
+    "eslint": "^8.20.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "prettier": "^2.7.1",
     "replace-in-file": "^6.3.5",
-    "typescript": "^4.5.5"
+    "typescript": "^4.7.4"
   }
 }
