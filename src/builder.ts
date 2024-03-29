@@ -1,10 +1,9 @@
 import { mkdir, writeFile } from 'fs/promises';
-import { execSync } from 'child_process';
 import { dirname as getDirname, relative } from 'path';
 import { fileURLToPath } from 'url';
 import { createHash } from 'crypto';
 import { existsSync, rmSync } from 'fs';
-import { AstroGlobal, AstroUserConfig } from 'astro';
+import { build, type AstroGlobal, type AstroUserConfig } from 'astro';
 
 const dirname = (() => {
 	/* replace-in-file-dirname-start */
@@ -66,7 +65,7 @@ export async function buildComponent(path: string, props: AstroGlobal['props'], 
 	}
 
 	// Build it using the Astro CLI
-	execSync('npx astro build', { cwd: projectRoot });
+	await build({ root: projectRoot });
 
 	return {
 		projectRoot,
