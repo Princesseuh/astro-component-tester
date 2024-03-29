@@ -29,7 +29,7 @@
     "prepublishOnly": "npm run build"
   },
   "peerDependencies": {
-    "astro": "^1.0.0-rc.1"
+    "astro": "^4.0.0"
   },
   "devDependencies": {
     "@types/eslint": "^8.4.5",
@@ -37,12 +37,13 @@
     "@types/prettier": "^2.6.4",
     "@typescript-eslint/eslint-plugin": "^5.31.0",
     "@typescript-eslint/parser": "^5.31.0",
-    "astro": ">=1.0.0-rc.3",
+    "astro": "^4.0.0",
     "eslint": "^8.20.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.2.1",
     "prettier": "^2.7.1",
     "replace-in-file": "^6.3.5",
     "typescript": "^4.7.4"
-  }
+  },
+  "packageManager": "pnpm@8.15.5"
 }
