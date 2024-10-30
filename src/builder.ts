@@ -65,7 +65,7 @@ export async function buildComponent(path: string, props: AstroGlobal['props'], 
 	}
 
 	// Build it using the Astro CLI
-	await build({ root: projectRoot });
+	await build({ root: projectRoot, logLevel: 'error' });
 
 	return {
 		projectRoot,
