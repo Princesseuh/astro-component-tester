@@ -1,7 +1,7 @@
 {
   "name": "astro-component-tester",
   "description": "Utility to test Astro components",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "type": "module",
   "main": "./dist/cjs/index.js",
   "module": "./dist/index.js",
